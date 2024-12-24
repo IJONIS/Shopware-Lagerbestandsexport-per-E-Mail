@@ -4,7 +4,7 @@ Dieses Plugin ermöglicht den automatischen Export von Lagerbeständen per E-Mai
 
 ## Systemanforderungen
 
-* Shopware 6.5.0 oder höher
+* Shopware 6.6.5.1 oder höher
 * PHP 8.1 oder höher
 
 ## Features

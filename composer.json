@@ -11,8 +11,8 @@
         }
     ],
     "require": {
-        "shopware/core": "~6.5.0",
-        "shopware/administration": "~6.5.0"
+        "shopware/core": "~6.6.5.1",
+        "shopware/administration": "~6.6.5.1"
     },
     "extra": {
         "shopware-plugin-class": "Lagerbestandsexport\\Lagerbestandsexport",
