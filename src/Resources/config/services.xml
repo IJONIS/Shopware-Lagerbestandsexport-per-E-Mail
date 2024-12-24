@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="Lagerbestandsexport\Service\ExportService">
+            <argument type="service" id="product.repository"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument>%kernel.project_dir%</argument>
+            <argument type="service" id="mailer"/>
+        </service>
+
+        <service id="Lagerbestandsexport\Command\ExportCommand">
+            <argument type="service" id="Lagerbestandsexport\Service\ExportService"/>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="Lagerbestandsexport\Controller\TestMailController" public="true">
+            <argument type="service" id="Lagerbestandsexport\Service\ExportService"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+            <tag name="controller.service_arguments"/>
+        </service>
+
+        <service id="Lagerbestandsexport\ScheduledTask\ExportTask">
+            <tag name="shopware.scheduled.task" />
+        </service>
+
+        <service id="Lagerbestandsexport\ScheduledTask\ExportTaskHandler">
+            <argument type="service" id="scheduled_task.repository" />
+            <argument type="service" id="Lagerbestandsexport\Service\ExportService"/>
+            <tag name="messenger.message_handler" />
+        </service>
+    </services>
+</container>

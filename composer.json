@@ -1,0 +1,41 @@
+{
+    "name": "ijonis/lagerbestandsexport",
+    "description": "Automatischer Export von Lagerbeständen per E-Mail",
+    "version": "1.0.0",
+    "type": "shopware-platform-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "IJONIS",
+            "email": "hi@ijonis.com"
+        }
+    ],
+    "require": {
+        "shopware/core": "~6.5.0",
+        "shopware/administration": "~6.5.0"
+    },
+    "extra": {
+        "shopware-plugin-class": "Lagerbestandsexport\\Lagerbestandsexport",
+        "label": {
+            "de-DE": "Lagerbestand Export",
+            "en-GB": "Stock Export"
+        },
+        "description": {
+            "de-DE": "Automatischer Export von Lagerbeständen per E-Mail mit konfigurierbaren Intervallen",
+            "en-GB": "Automatic export of stock levels via email with configurable intervals"
+        },
+        "manufacturerLink": {
+            "de-DE": "https://www.ijonis.com",
+            "en-GB": "https://www.ijonis.com"
+        },
+        "supportLink": {
+            "de-DE": "https://www.ijonis.com/support",
+            "en-GB": "https://www.ijonis.com/support"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Lagerbestandsexport\\": "src/"
+        }
+    }
+}

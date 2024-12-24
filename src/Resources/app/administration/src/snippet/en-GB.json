@@ -1,0 +1,17 @@
+{
+    "lagerbestandsexport": {
+        "button": {
+            "testMail": "Send test email"
+        },
+        "notification": {
+            "success": {
+                "title": "Success",
+                "message": "Test email sent successfully"
+            },
+            "error": {
+                "title": "Error",
+                "message": "Error sending test email"
+            }
+        }
+    }
+}

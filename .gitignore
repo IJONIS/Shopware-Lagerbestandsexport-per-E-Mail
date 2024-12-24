@@ -1,0 +1,9 @@
+/vendor/
+.idea/
+.vscode/
+*.cache
+*.log
+.DS_Store
+node_modules/
+/src/Resources/public/administration/js/
+/src/Resources/public/administration/css/

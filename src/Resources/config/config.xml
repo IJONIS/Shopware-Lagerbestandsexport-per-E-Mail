@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
+    
+    <card>
+        <title>Allgemeine Einstellungen</title>
+        <title lang="de-DE">Grundeinstellungen</title>
+
+        <input-field>
+            <name>senderEmailAddress</name>
+            <label>Absender-E-Mail-Adresse</label>
+            <label lang="de-DE">Absender E-Mail-Adresse</label>
+            <placeholder>no-reply@localhost.de</placeholder>
+        </input-field>
+
+        <input-field>
+            <name>exportEmailAddresses</name>
+            <label>Empfänger-E-Mail-Adressen (durch Komma getrennt)</label>
+            <label lang="de-DE">Export E-Mail-Adressen</label>
+            <placeholder>export1@example.com, export2@example.com</placeholder>
+            <helpText>Multiple email addresses can be separated by commas.</helpText>
+            <helpText lang="de-DE">Mehrere E-Mail-Adressen können durch Kommas getrennt werden.</helpText>
+        </input-field>
+
+        <input-field>
+            <name>emailSubject</name>
+            <label>Betreff der Export-E-Mail</label>
+            <label lang="de-DE">E-Mail-Betreff</label>
+            <placeholder>Stock Export %date%</placeholder>
+            <placeholder lang="de-DE">Lagerbestand Export %date%</placeholder>
+        </input-field>
+
+        <input-field type="single-select">
+            <name>exportInterval</name>
+            <label>Export Intervall</label>
+            <label lang="de-DE">Exportintervall</label>
+            <options>
+                <option>
+                    <id>86400</id>
+                    <name>Täglich</name>
+                    <name lang="de-DE">Täglich</name>
+                </option>
+                <option>
+                    <id>604800</id>
+                    <name>Wöchentlich</name>
+                    <name lang="de-DE">Wöchentlich</name>
+                </option>
+                <option>
+                    <id>2592000</id>
+                    <name>Monatlich</name>
+                    <name lang="de-DE">Monatlich</name>
+                </option>
+            </options>
+            <defaultValue>86400</defaultValue>
+        </input-field>
+
+        <component name="sw-button-process">
+            <name>sendTestMail</name>
+            <variant>primary</variant>
+            <buttonText>Export Now</buttonText>
+            <buttonText lang="de-DE">Export jetzt ausführen</buttonText>
+            <processSuccess>Export successful</processSuccess>
+            <processSuccess lang="de-DE">Export erfolgreich</processSuccess>
+            <processError>Export failed</processError>
+            <processError lang="de-DE">Export fehlgeschlagen</processError>
+            <url>api.action.lagerbestandsexport.send.test</url>
+        </component>
+    </card>
+</config>
