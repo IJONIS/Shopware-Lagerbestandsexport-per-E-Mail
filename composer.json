@@ -37,5 +37,11 @@
         "psr-4": {
             "Lagerbestandsexport\\": "src/"
         }
+    },
+    "homepage": "https://github.com/IJONIS/Shopware-Lagerbestandsexport-per-E-Mail",
+    "support": {
+        "issues": "https://github.com/IJONIS/Shopware-Lagerbestandsexport-per-E-Mail/issues",
+        "source": "https://github.com/IJONIS/Shopware-Lagerbestandsexport-per-E-Mail",
+        "docs": "https://github.com/IJONIS/Shopware-Lagerbestandsexport-per-E-Mail/blob/main/README.md"
     }
 }
