@@ -1,16 +1,40 @@
 {
     "lagerbestandsexport": {
-        "button": {
-            "testMail": "Test-E-Mail senden"
+        "title": "Lagerbestandsexport",
+        "general": {
+            "mainMenuItemGeneral": "Lagerbestandsexport"
+        },
+        "config": {
+            "saveExportFileLabel": "Export-Dateien auf Server speichern",
+            "saveExportFileHelp": "Wenn aktiviert, werden die Export-Dateien im Verzeichnis files/export gespeichert",
+            "senderEmailAddressLabel": "Absender E-Mail-Adresse",
+            "senderEmailAddressPlaceholder": "no-reply@localhost.de",
+            "exportEmailAddressesLabel": "Empfänger E-Mail-Adressen",
+            "exportEmailAddressesHelp": "Mehrere E-Mail-Adressen müssen durch Kommas getrennt werden. Leerzeichen um die Adressen werden automatisch entfernt.",
+            "exportEmailAddressesPlaceholder": "export1@example.com,export2@example.com",
+            "emailSubjectLabel": "E-Mail-Betreff",
+            "emailSubjectHelp": "Verwenden Sie %date% als Platzhalter für das aktuelle Datum",
+            "emailSubjectPlaceholder": "Lagerbestand Export %date%",
+            "emailContentLabel": "E-Mail Text",
+            "emailContentHelp": "Verwenden Sie %date% als Platzhalter für das aktuelle Datum",
+            "emailContentPlaceholder": "Im Anhang finden Sie den aktuellen Lagerbestand vom %date%.",
+            "maxStoredFilesLabel": "Maximale Anzahl gespeicherter Export-Dateien",
+            "maxStoredFilesHelp": "Ältere Dateien werden automatisch gelöscht. 0 = unbegrenzt",
+            "maxStoredFilesPlaceholder": "30",
+            "exportIntervalLabel": "Export Intervall",
+            "intervalDaily": "Täglich",
+            "intervalWeekly": "Wöchentlich",
+            "intervalMonthly": "Monatlich",
+            "runExportButton": "Jetzt exportieren"
         },
         "notification": {
-            "success": {
-                "title": "Erfolg",
-                "message": "Test-E-Mail wurde erfolgreich versendet"
+            "exportSuccess": {
+                "title": "Export erfolgreich",
+                "message": "Der Export wurde erfolgreich durchgeführt und per E-Mail versendet."
             },
-            "error": {
-                "title": "Fehler",
-                "message": "Fehler beim Versenden der Test-E-Mail"
+            "exportError": {
+                "title": "Export fehlgeschlagen",
+                "message": "Beim Export ist ein Fehler aufgetreten: "
             }
         }
     }

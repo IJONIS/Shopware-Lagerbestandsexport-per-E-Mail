@@ -16,14 +16,6 @@
             <tag name="console.command"/>
         </service>
 
-        <service id="Lagerbestandsexport\Controller\TestMailController" public="true">
-            <argument type="service" id="Lagerbestandsexport\Service\ExportService"/>
-            <call method="setContainer">
-                <argument type="service" id="service_container"/>
-            </call>
-            <tag name="controller.service_arguments"/>
-        </service>
-
         <service id="Lagerbestandsexport\ScheduledTask\ExportTask">
             <tag name="shopware.scheduled.task" />
         </service>

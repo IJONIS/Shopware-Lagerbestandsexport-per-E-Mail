@@ -1,39 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
-    
     <card>
         <title>Allgemeine Einstellungen</title>
         <title lang="de-DE">Grundeinstellungen</title>
 
-        <input-field>
+        <input-field type="bool">
+            <name>saveExportFile</name>
+            <label>Export-Dateien auf Server speichern</label>
+            <label lang="de-DE">Export-Dateien auf Server speichern</label>
+            <defaultValue>false</defaultValue>
+            <helpText>Wenn aktiviert, werden die Export-Dateien im Verzeichnis files/export gespeichert</helpText>
+            <helpText lang="de-DE">Wenn aktiviert, werden die Export-Dateien im Verzeichnis files/export gespeichert</helpText>
+        </input-field>
+
+        <input-field type="text">
             <name>senderEmailAddress</name>
             <label>Absender-E-Mail-Adresse</label>
             <label lang="de-DE">Absender E-Mail-Adresse</label>
+            <defaultValue>no-reply@localhost.de</defaultValue>
             <placeholder>no-reply@localhost.de</placeholder>
         </input-field>
 
-        <input-field>
-            <name>exportEmailAddresses</name>
-            <label>Empfänger-E-Mail-Adressen (durch Komma getrennt)</label>
-            <label lang="de-DE">Export E-Mail-Adressen</label>
-            <placeholder>export1@example.com, export2@example.com</placeholder>
-            <helpText>Multiple email addresses can be separated by commas.</helpText>
-            <helpText lang="de-DE">Mehrere E-Mail-Adressen können durch Kommas getrennt werden.</helpText>
+        <input-field type="text">
+            <name>senderName</name>
+            <label>Absender Name</label>
+            <label lang="de-DE">Absender Name</label>
+            <defaultValue>Lagerbestandsexport</defaultValue>
+            <placeholder>Lagerbestandsexport</placeholder>
+            <helpText>This name will be shown as the sender name in emails</helpText>
+            <helpText lang="de-DE">Dieser Name wird als Absendername in E-Mails angezeigt</helpText>
         </input-field>
 
-        <input-field>
+        <input-field type="text">
+            <name>exportEmailAddresses</name>
+            <label>Empfänger-E-Mail-Adressen</label>
+            <label lang="de-DE">Empfänger E-Mail-Adressen</label>
+            <defaultValue>export@example.com</defaultValue>
+            <placeholder>export1@example.com,export2@example.com</placeholder>
+            <helpText>Multiple email addresses must be separated by commas. Spaces around the addresses will be automatically removed.</helpText>
+            <helpText lang="de-DE">Mehrere E-Mail-Adressen müssen durch Kommas getrennt werden. Leerzeichen um die Adressen werden automatisch entfernt.</helpText>
+        </input-field>
+
+        <input-field type="text">
             <name>emailSubject</name>
             <label>Betreff der Export-E-Mail</label>
             <label lang="de-DE">E-Mail-Betreff</label>
-            <placeholder>Stock Export %date%</placeholder>
-            <placeholder lang="de-DE">Lagerbestand Export %date%</placeholder>
+            <defaultValue>Lagerbestand Export %date%</defaultValue>
+            <placeholder>Lagerbestand Export %date%</placeholder>
+            <helpText>Use %date% as placeholder for the current date</helpText>
+            <helpText lang="de-DE">Verwenden Sie %date% als Platzhalter für das aktuelle Datum</helpText>
+        </input-field>
+
+        <input-field type="textarea">
+            <name>emailContent</name>
+            <label>E-Mail Text</label>
+            <label lang="de-DE">E-Mail Text</label>
+            <defaultValue>Im Anhang finden Sie den aktuellen Lagerbestand vom %date%.</defaultValue>
+            <placeholder>Im Anhang finden Sie den aktuellen Lagerbestand vom %date%.</placeholder>
+            <helpText>Use %date% as placeholder for the current date</helpText>
+            <helpText lang="de-DE">Verwenden Sie %date% als Platzhalter für das aktuelle Datum</helpText>
+        </input-field>
+
+        <input-field type="int">
+            <name>maxStoredFiles</name>
+            <label>Maximale Anzahl gespeicherter Export-Dateien</label>
+            <label lang="de-DE">Maximale Anzahl gespeicherter Export-Dateien</label>
+            <defaultValue>30</defaultValue>
+            <helpText>Ältere Dateien werden automatisch gelöscht. 0 = unbegrenzt</helpText>
+            <helpText lang="de-DE">Ältere Dateien werden automatisch gelöscht. 0 = unbegrenzt</helpText>
         </input-field>
 
         <input-field type="single-select">
             <name>exportInterval</name>
             <label>Export Intervall</label>
             <label lang="de-DE">Exportintervall</label>
+            <defaultValue>86400</defaultValue>
             <options>
                 <option>
                     <id>86400</id>
@@ -51,19 +93,6 @@
                     <name lang="de-DE">Monatlich</name>
                 </option>
             </options>
-            <defaultValue>86400</defaultValue>
         </input-field>
-
-        <component name="sw-button-process">
-            <name>sendTestMail</name>
-            <variant>primary</variant>
-            <buttonText>Export Now</buttonText>
-            <buttonText lang="de-DE">Export jetzt ausführen</buttonText>
-            <processSuccess>Export successful</processSuccess>
-            <processSuccess lang="de-DE">Export erfolgreich</processSuccess>
-            <processError>Export failed</processError>
-            <processError lang="de-DE">Export fehlgeschlagen</processError>
-            <url>api.action.lagerbestandsexport.send.test</url>
-        </component>
     </card>
 </config>

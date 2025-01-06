@@ -8,7 +8,7 @@ class ExportTask extends ScheduledTask
 {
     public static function getTaskName(): string
     {
-        return 'lagerbestandsexport.export_task';
+        return 'lagerbestandsexport.export';
     }
 
     public static function getDefaultInterval(): int
