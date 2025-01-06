@@ -31,40 +31,48 @@ class ExportService
 
     /**
      * Exportiert die Lagerbestände und sendet die E-Mail
-     *
-     * @param Context $context
-     * @param bool $isTest
-     * @throws \Exception
      */
-    public function exportAndSendMail(Context $context, bool $isTest = false): void
+    public function exportAndSendMail(Context $context): void
     {
-        // Export-Logik
         $csvData = $this->generateCsv($context);
-        $filePath = $this->saveCsv($csvData);
+        
+        // Temporäre Datei für den E-Mail-Versand erstellen
+        $tempFile = tempnam(sys_get_temp_dir(), 'lagerbestand_');
+        file_put_contents($tempFile, $csvData);
 
-        // E-Mail senden
-        $this->sendEmail($filePath, $isTest, $context);
+        // Wenn aktiviert, Export auf Server speichern
+        $saveExportFile = $this->systemConfigService->get('Lagerbestandsexport.config.saveExportFile');
+        $filePath = $tempFile;
+
+        if ($saveExportFile) {
+            $filePath = $this->saveCsv($csvData);
+        }
+
+        try {
+            $this->sendEmail($filePath, $context);
+        } finally {
+            // Temporäre Datei löschen, wenn sie nicht auf dem Server gespeichert wurde
+            if (!$saveExportFile && file_exists($tempFile)) {
+                unlink($tempFile);
+            }
+        }
     }
 
     /**
      * Generiert die CSV-Daten
-     *
-     * @param Context $context
-     * @return string
      */
     private function generateCsv(Context $context): string
     {
         $criteria = new Criteria();
         $products = $this->productRepository->search($criteria, $context)->getEntities();
 
-        // CSV Header
         $csv = "Artikelnummer;EAN;Name;Lagerbestand\n";
         
         foreach ($products as $product) {
             $csv .= sprintf(
                 "%s;%s;%s;%d\n",
-                $product->getProductNumber(), // Artikelnummer/SKU
-                $product->getEan() ?: '', // EAN, falls nicht vorhanden leerer String
+                $product->getProductNumber(),
+                $product->getEan() ?: '',
                 $product->getTranslation('name'),
                 $product->getStock()
             );
@@ -75,10 +83,6 @@ class ExportService
 
     /**
      * Speichert die CSV-Daten lokal
-     *
-     * @param string $csvData
-     * @return string
-     * @throws \Exception
      */
     private function saveCsv(string $csvData): string
     {
@@ -96,33 +100,59 @@ class ExportService
             throw new \Exception("Unable to write CSV file: $filePath");
         }
 
+        // Alte Dateien aufräumen
+        $maxFiles = (int)$this->systemConfigService->get('Lagerbestandsexport.config.maxStoredFiles');
+        if ($maxFiles > 0) {
+            $this->cleanupOldFiles($exportDir, $maxFiles);
+        }
+
         return $filePath;
     }
 
     /**
-     * Sendet die E-Mail mit dem CSV-Anhang
-     *
-     * @param string $filePath
-     * @param bool $isTest
-     * @param Context $context
-     * @throws \Exception
+     * Löscht alte Export-Dateien
      */
-    private function sendEmail(string $filePath, bool $isTest, Context $context): void
+    private function cleanupOldFiles(string $directory, int $maxFiles): void
+    {
+        $files = glob($directory . '/lagerbestand_*.csv');
+        if ($files === false) {
+            return;
+        }
+
+        // Sortiere Dateien nach Änderungsdatum (neueste zuerst)
+        usort($files, function($a, $b) {
+            return filemtime($b) - filemtime($a);
+        });
+
+        // Lösche überzählige Dateien
+        for ($i = $maxFiles; $i < count($files); $i++) {
+            if (file_exists($files[$i])) {
+                unlink($files[$i]);
+            }
+        }
+    }
+
+    /**
+     * Sendet die E-Mail mit dem CSV-Anhang
+     */
+    private function sendEmail(string $filePath, Context $context): void
     {
         $recipientEmails = $this->systemConfigService->get('Lagerbestandsexport.config.exportEmailAddresses');
         $senderEmail = $this->systemConfigService->get('Lagerbestandsexport.config.senderEmailAddress');
+        $senderName = $this->systemConfigService->get('Lagerbestandsexport.config.senderName') ?? 'Lagerbestandsexport';
         $emailSubject = $this->systemConfigService->get('Lagerbestandsexport.config.emailSubject');
-        $emailSubject = str_replace('%date%', date('Y-m-d'), $emailSubject);
+        $emailContent = $this->systemConfigService->get('Lagerbestandsexport.config.emailContent');
 
-        if ($isTest) {
-            $recipientEmails = $senderEmail;
-        }
+        // Ersetze Platzhalter im Betreff und Inhalt
+        $date = date('Y-m-d');
+        $emailSubject = str_replace('%date%', $date, $emailSubject);
+        $emailContent = str_replace('%date%', $date, $emailContent);
 
         $email = (new Email())
-            ->from(new Address($senderEmail, 'Lagerbestandsexport'))
+            ->from(new Address($senderEmail, $senderName))
             ->to(...array_map('trim', explode(',', $recipientEmails)))
             ->subject($emailSubject)
-            ->text('Im Anhang finden Sie den aktuellen Lagerbestand.')
+            ->text($emailContent)
             ->attachFromPath($filePath);
 
         try {

@@ -1,16 +1,39 @@
 {
     "lagerbestandsexport": {
-        "button": {
-            "testMail": "Send test email"
+        "general": {
+            "mainMenuItemGeneral": "Stock Export"
+        },
+        "config": {
+            "saveExportFileLabel": "Save export files on server",
+            "saveExportFileHelp": "If enabled, export files will be saved in the files/export directory",
+            "senderEmailAddressLabel": "Sender email address",
+            "senderEmailAddressPlaceholder": "no-reply@localhost.com",
+            "exportEmailAddressesLabel": "Recipient email addresses",
+            "exportEmailAddressesHelp": "Multiple email addresses must be separated by commas. Spaces around addresses will be automatically removed.",
+            "exportEmailAddressesPlaceholder": "export1@example.com,export2@example.com",
+            "emailSubjectLabel": "Email subject",
+            "emailSubjectHelp": "Use %date% as placeholder for the current date",
+            "emailSubjectPlaceholder": "Stock Export %date%",
+            "emailContentLabel": "Email text",
+            "emailContentHelp": "Use %date% as placeholder for the current date",
+            "emailContentPlaceholder": "Please find the current stock export from %date% attached.",
+            "maxStoredFilesLabel": "Maximum number of stored export files",
+            "maxStoredFilesHelp": "Older files will be automatically deleted. 0 = unlimited",
+            "maxStoredFilesPlaceholder": "30",
+            "exportIntervalLabel": "Export interval",
+            "intervalDaily": "Daily",
+            "intervalWeekly": "Weekly",
+            "intervalMonthly": "Monthly",
+            "runExportButton": "Export now"
         },
         "notification": {
-            "success": {
-                "title": "Success",
-                "message": "Test email sent successfully"
+            "exportSuccess": {
+                "title": "Export successful",
+                "message": "The export was successfully completed and sent via email."
             },
-            "error": {
-                "title": "Error",
-                "message": "Error sending test email"
+            "exportError": {
+                "title": "Export failed",
+                "message": "An error occurred during export: "
             }
         }
     }

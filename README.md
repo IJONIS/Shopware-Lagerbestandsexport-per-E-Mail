@@ -16,7 +16,6 @@ Dieses Plugin ermöglicht den automatischen Export von Lagerbeständen per E-Mai
   - Produktname
   - Lagerbestand
 - Konfigurierbare E-Mail-Adressen für den Versand
-- Test-Funktion für die E-Mail-Konfiguration
 - Lokale Speicherung der Export-Dateien
 - Mehrsprachige Unterstützung (Deutsch/Englisch)
 - Geplante Tasks für automatische Exports
@@ -66,9 +65,8 @@ Das Plugin nutzt die Standard-SMTP-Konfiguration von Shopware. Stellen Sie siche
 
 1. Navigieren Sie zu **Einstellungen > System > Plugins > Lagerbestandsexport**
 2. Konfigurieren Sie die E-Mail-Einstellungen
-3. Nutzen Sie den "Test-E-Mail senden" Button für einen manuellen Test-Export
-4. Die Export-Dateien werden im Verzeichnis `files/export` gespeichert
-5. Die konfigurierten E-Mail-Empfänger erhalten den Export als CSV-Anhang
+3. Die Export-Dateien werden im Verzeichnis `files/export` gespeichert
+4. Die konfigurierten E-Mail-Empfänger erhalten den Export als CSV-Anhang
 
 ### Kommandozeile
 
@@ -87,8 +85,7 @@ Der Export wird automatisch gemäß dem konfigurierten Intervall ausgeführt (St
 Bei Problemen mit dem E-Mail-Versand:
 
 1. Überprüfen Sie die SMTP-Konfiguration in Shopware
-2. Testen Sie den E-Mail-Versand mit dem Test-Button
-3. Prüfen Sie die Logs unter `var/log/prod-{date}.log`
+2. Prüfen Sie die Logs unter `var/log/prod-{date}.log`
 
 ### Bekannte Probleme und Lösungen
 
@@ -96,14 +93,6 @@ Bei Problemen mit dem E-Mail-Versand:
    - Überprüfen Sie die SMTP-Konfiguration in Shopware
    - Stellen Sie sicher, dass die E-Mail-Adressen korrekt formatiert sind
    - Prüfen Sie die Firewall-Einstellungen für SMTP-Ports
-
-2. **Test-Button funktioniert nicht:**
-   - Leeren Sie den Browser-Cache
-   - Kompilieren Sie die Administration neu:
-     ```bash
-     bin/console assets:install
-     bin/console cache:clear
-     ```
 
 ## Support
 
