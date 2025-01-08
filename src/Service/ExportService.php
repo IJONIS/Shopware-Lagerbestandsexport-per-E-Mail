@@ -37,7 +37,7 @@ class ExportService
         $csvData = $this->generateCsv($context);
         
         // Temporäre Datei für den E-Mail-Versand erstellen
-        $tempFile = tempnam(sys_get_temp_dir(), 'lagerbestand_');
+        $tempFile = tempnam(sys_get_temp_dir(), 'lagerbestand_') . '.csv';
         file_put_contents($tempFile, $csvData);
 
         // Wenn aktiviert, Export auf Server speichern
